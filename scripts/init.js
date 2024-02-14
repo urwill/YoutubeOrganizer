@@ -76,6 +76,7 @@ async function importTemplates() {
         quota: getQuota(),
         totalQuota: getTotalQuota(),
         apiKey: getApiKey(),
+        test: false,
         index: (pageName === 'index'),
         userDetails: (pageName === 'userDetails'),
         users: (pageName === 'users'),
