@@ -1,0 +1,168 @@
+<div class="container mt-3">
+    <form class="row gy-2 gx-2 mb-3 align-items-center">
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary" onclick="test();">Test</button>
+        </div>
+    </form>
+    <form class="row gy-2 gx-2 align-items-center">
+        {#userDetails}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <span class="fa-stack small">
+                        <i class="fas fa-play fa-stack-1x fa-inverse"></i>
+                        <!--weißes Icon hinter dem Youtube Icon platzieren, damit auch im Darkmode das Play-Symbol weiß ist -->
+                        <i class="fab fa-youtube fa-stack-2x" style="color: #FF0000;"></i>
+                    </span>
+                </span>
+                <a href="" target="_blank" class="form-control"
+                    style="text-decoration:none;color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));"
+                    id="linkYoutubeChannel"></a>
+            </div>
+        </div>{/userDetails}
+        {#indexUserDetails}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-check fa-fw"></i></span>
+                <select class="form-select" id="filterSeen" onchange="loadTable();">
+                    <option value="0">Ungesehen</option>
+                    <option value="1">Gesehen</option>
+                </select>
+            </div>
+        </div>{/indexUserDetails}
+        {#users}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-trash fa-fw"></i></span>
+                <select class="form-select" id="filterDeleted" onchange="loadTable();">
+                    <option value="0">Nicht gelöscht</option>
+                    <option value="1">Gelöscht</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-pause fa-fw"></i></span>
+                <select class="form-select" id="filterInactive" onchange="loadTable();">
+                    <option value="%">Alle</option>
+                    <option value="0" selected>Aktiv</option>
+                    <option value="1">Inaktiv</option>
+                </select>
+            </div>
+        </div>{/users}
+        {#indexUsers}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-eye-slash fa-fw"></i></span>
+                <select class="form-select" id="filterHidden" onchange="loadTable();">
+                    <option value="%">Alle</option>
+                    <option value="0" selected>Sichtbar</option>
+                    <option value="1">Versteckt</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-language fa-fw"></i></span>
+                <select class="form-select" id="filterLanguage" onchange="loadTable();">
+                    <option value="%">Alle</option>
+                </select>
+            </div>
+        </div>{/indexUsers}
+        {#users}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <div class="icon fa-fw"><img src="./icons/playlist.svg" class="" /></div>
+                </span>
+                <select class="form-select" id="filterIsPlaylist" onchange="loadTable();">
+                    <option value="%">Alle</option>
+                    <option value="0">Kanäle</option>
+                    <option value="1">Playlists</option>
+                </select>
+            </div>
+        </div>{/users}
+        {#indexUserDetails}<div class="col-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="createPlaylist('button')">Playlist
+                    erstellen</button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" id="playlistDropdownMenu">
+                    <li><button class="dropdown-item active" type="button" onclick="selectPlaylistType(this);"
+                            data-value="selected">Playlist aus markierten Zeilen erstellen</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="selectPlaylistType(this);"
+                            data-value="page">Playlist aus allen angezeigten Zeilen erstellen</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="selectPlaylistType(this);"
+                            data-value="all">Playlist aus kompletter Liste erstellen</button></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><button class="dropdown-item" type="button" onclick="selectAllRows()">Alle angezeigten Zeilen
+                            auswählen</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="deselectAllRows()">Auswahl
+                            entfernen</button>
+                    </li>
+                </ul>
+            </div>
+        </div>{/indexUserDetails}
+        <div class="col">
+            <!-- Leeren Platz ausfüllen, damit folgende Elemente rechts sind -->
+        </div>
+        {#indexUserDetails}<div class="col-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="getVideos()">Aktualisieren</button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu p-4">
+                    <div class="grid grid-1">
+                        <div class="btn-group" role="group" aria-label="Aktualisierungstyp">
+                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioNewVideos" autocomplete="off" checked onchange="btnradioVideosChange(this)">
+                            <label class="btn btn-outline-primary" for="btnradioNewVideos">Neue Videos suchen</label>
+    
+                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioOldVideos" autocomplete="off" onchange="btnradioVideosChange(this)">
+                            <label class="btn btn-outline-primary" for="btnradioOldVideos">Alte Videos prüfen</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckNewVideos" checked>
+                            <label class="form-check-label" for="flexSwitchCheckNewVideos">Nur neuste Videos
+                                durchsuchen</label>
+                        </div>
+                        {#index}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckActiveUsers" checked>
+                            <label class="form-check-label" for="flexSwitchCheckActiveUsers">Nur aktive
+                                Channels durchsuchen</label>
+                        </div>
+                        {/index}
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>{/indexUserDetails}
+
+
+        {#indexUserDetails}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-clock fa-fw"></i></span>
+                <label class="form-control" id="labelTotalDuration">00:00:00</label>
+            </div>
+        </div>{/indexUserDetails}
+        {#users}<div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user fa-fw"></i></span>
+                <label class="form-control" id="labelUserCount">0</label>
+            </div>
+        </div>{/users}
+    </form>
+    <div class="mt-5">
+        <table class="table table-sm table-bordered rounded text-nowrap" id="dataTable">
+            <thead>
+                <tr>
+                    {tableHeaders}
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<!-- Modal -->
+<div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="userForm" onsubmit="saveUser(this); return false;" data-usersId="0">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="userModalLabel">Benutzer erstellen</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="grid grid-2 fullWidth-2">
+                        <div></div>
+                        <div class="btn-group" role="group" aria-label="Kanal oder Playlist">
+                            <input type="radio" class="btn-check" name="btnradioChannelType" id="btnradioChannel"
+                                autocomplete="off" disabled>
+                            <label class="btn btn-outline-primary" for="btnradioChannel">Kanal</label>
+
+                            <input type="radio" class="btn-check" name="btnradioChannelType" id="btnradioPlaylist"
+                                autocomplete="off" disabled>
+                            <label class="btn btn-outline-primary" for="btnradioPlaylist">Playlist</label>
+                        </div>
+
+                        <label for="inputTextChannelId" class="col-form-label">Channel-ID</label>
+                        <input type="text" id="inputTextChannelId" class="form-control" disabled>
+
+                        <label for="inputTextUserTitle" class="col-form-label">Originalname</label>
+                        <input type="text" id="inputTextUserTitle" class="form-control" disabled>
+
+                        <label for="selectPrivacyStatus" class="col-form-label">Verfügbarkeit</label>
+                        <select id="selectPrivacyStatus" class="form-control" disabled>
+                            {privacyStatusOptions}
+                        </select>
+
+
+                        <label for="inputTextCustomUserTitle" class="col-form-label">Anzeigename</label>
+                        <input type="text" id="inputTextCustomUserTitle" class="form-control">
+
+                        <label for="selectLanguage" class="col-form-label">Sprache</label>
+                        <select id="selectLanguage" class="form-select">
+                            {languageOptions}
+                        </select>
+
+                        <label for="inputSwitchActiveUser" class="col-form-label">Aktiv</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="inputSwitchActiveUser">
+                        </div>
+
+                        <label for="inputSwitchVisibleUser" class="col-form-label">Sichtbar</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="inputSwitchVisibleUser">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

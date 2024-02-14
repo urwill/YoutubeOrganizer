@@ -1,0 +1,156 @@
+/* Leicht abweichende Hintergrundfarbe, damit die Elemente besser zur Geltung kommen */
+html[data-bs-theme="light"]>body {
+    background-color: #F1F2F3;
+}
+
+html[data-bs-theme="dark"]>body {
+    background-color: #18181b;
+}
+
+/* Die Farben von selbst erstellten Icons im Darkmode invertieren, da das nicht automatisch geschieht, wie bei Font Awesome Icons */
+html[data-bs-theme="dark"] .icon {
+    filter: invert(100%);
+}
+
+/* Selbst erstellten Icons vertical zentrieren */
+.icon {
+    line-height: 1rem;
+}
+
+/* Selbst erstellten Icons die gleiche Größe wie Font Awesome Icons geben */
+.icon>img {
+    height: 1rem;
+}
+
+/* Die Größe von überlagernen Font Awesome Icons halbieren, da die Größe des äußeren Icons an anderer Stelle verdoppelt wird */
+.fa-stack.small {
+    font-size: 0.5rem;
+}
+
+/* Icon als Button verwenden */
+.image-button {
+    cursor: pointer;
+}
+.image-button:hover {
+    color: var(--bs-primary);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* Bootstrap wendet bei table-bordered die borders nicht auf die Tabelle selbst, sondern auf die Spalten an. Also die Spalten in den jeweiligen Ecken abrunden, statt der table */
+/* Linke obere Ecke abrunden */
+.table-bordered.rounded thead tr:first-child th:first-child {
+    border-top-left-radius: var(--bs-border-radius) !important;
+}
+
+/* Rechte obere Ecke abrunden */
+.table-bordered.rounded thead tr:first-child th:last-child {
+    border-top-right-radius: var(--bs-border-radius) !important;
+}
+
+/* Linke untere Ecke abrunden */
+.table-bordered.rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+}
+
+/* Rechte untere Ecke abrunden */
+.table-bordered.rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+}
+
+/* DataTables gibt der Tabelle eine feste Breite, die aber aus irgendeinem Grund ein paar Pixel zu breit ist */
+.dataTable {
+    width: 100% !important;
+}
+
+/* Modals, die die Oberfläche sperren, sollen nicht von z.B. Toasts überlagert werden */
+.modal.blocking {
+    z-index: 1100;
+}
+
+/* Damit Alerts immer über allen anderen Elementen anzeigt werden */
+#alertPlaceholder {
+    z-index: 1110;
+}
+
+/* Spinner etwas langsamer machen */
+.spinner-border {
+    animation-duration: 1s;
+}
+
+/* Größere Spinner */
+.spinner-border-lg {
+    width: 5rem;
+    height: 5rem;
+    border-width: 1rem;
+}
+
+/* Damit z.B. Toasts nicht auf der Navbar auftauchen */
+.top-afterNavbar {
+    top: var(--navbar-height);
+}
+
+/* Damit z.B. Toasts nicht das Offcanvas überlagern */
+.end-offcanvas {
+    right: 0;
+    transition: var(--offcanvas-transition);
+    transform: translateX(var(--offcanvas-width));
+}
+
+.bg-toast,
+.bg-toast div.toast-header {
+    /* border-color: rgba(255, 255, 255, 0.2); */
+    border-width: 1px;
+    border-style: solid;
+}
+
+.bg-toast div.toast-header {
+    border-style: none none solid none;
+}
+
+.fa-stack.toastInfo {
+    font-size: 0.5rem;
+    margin-top: -0.25rem;
+}
+
+@keyframes changeIndicatorBlink {
+    0% {
+        color: #006699;
+        /* Originalfarbe */
+    }
+
+    50% {
+        color: #5bc0de;
+        /* Blinkende Farbe */
+    }
+
+    100% {
+        color: #006699;
+        /* Zurück zur Originalfarbe */
+    }
+}
+
+.change-indicator-icon.blink {
+    animation: changeIndicatorBlink 1s;
+    /* Dauer der Animation */
+}
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid.grid-1 {
+    grid-template-columns: repeat(1, max-content);
+}
+
+.grid.grid-2 {
+    grid-template-columns: repeat(2, max-content);
+}
+
+.grid.grid-3 {
+    grid-template-columns: repeat(3, max-content);
+}
+
+.grid.grid-2.fullWidth-2 {
+    grid-template-columns: max-content auto;
+}

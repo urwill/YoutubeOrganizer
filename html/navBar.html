@@ -1,0 +1,101 @@
+<nav class="navbar bg-body-tertiary sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=".">
+            <img src="Logo.png" alt=""
+                style="height: var(--bs-navbar-brand-font-size); margin-right: 5px; margin-top: -0.25rem;">{appName}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Einstellungen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-circle-half-stroke fa-fw"></i></span>
+                            <select class="form-select" id="selectTheme" onchange="setTheme(this.value);"
+                                value="{theme}">
+                                <option value="system">Systemeinstellung übernehmen</option>
+                                <option value="dark">Dark Mode</option>
+                                <option value="light">Light Mode</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-database fa-fw"></i></span>
+                            <button type="button" class="btn btn-primary flex-fill border-end"
+                                onclick="uploadFile(importDB, '.sqlite,.sql');">Importieren</button>
+                            <button type="button" class="btn btn-primary flex-fill border-start border-end"
+                                onclick="exportDB();">Exportieren</button>
+                            <button type="button" class="btn btn-primary flex-fill border-start"
+                                onclick="deleteDB();">Löschen</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <div class="icon fa-fw">
+                                    <input type="checkbox" class="form-check-input mt-0"
+                                        id="checkboxBackupReminderCheck" aria-label="An Backup erinnern"
+                                        onchange="setBackupReminderCheck(this.checked);" {backupReminderCheck}>
+                                </div>
+                            </div>
+                            <span class="input-group-text">Backup Erinnerung nach</span>
+                            <input type="text" class="form-control" id="textInputBackupReminderDays"
+                                aria-label="Backup Erinnerung nach x Tagen"
+                                onchange="setBackupReminderDays(this.value);" value="{backupReminderDays}">
+                            <span class="input-group-text">Tagen</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user fa-fw"></i></span>
+                            <button type="button" class="btn btn-primary flex-fill border-end"
+                                onclick="openTab('users.html');">Verwalten</button>
+                            <button type="button" class="btn btn-primary flex-fill border-start border-end"
+                                onclick="createUser();">Hinzufügen</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-chart-line fa-fw"></i></span>
+                            <span class="input-group-text">Verbraucht</span>
+                            <input type="text" class="form-control" id="textInputQuota"
+                                aria-label="Verbrauchtes Kontingent (Quota)" onchange="setQuota(this.value);"
+                                value="{quota}">
+                            <span class="input-group-text">Gesamt</span>
+                            <input type="text" class="form-control" id="textInputTotalQuota"
+                                aria-label="Insgesamt verfügbares Kontingent (Quota)"
+                                onchange="setTotalQuota(this.value);" value="{totalQuota}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-key fa-fw"></i></span>
+                            <input type="text" class="form-control" id="textInputApiKey"
+                                aria-label="Youtube Data API Key" onchange="setApiKey(this.value);"
+                                value="{apiKey}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
