@@ -116,10 +116,12 @@
                 <div class="dropdown-menu p-4">
                     <div class="grid grid-1">
                         <div class="btn-group" role="group" aria-label="Aktualisierungstyp">
-                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioNewVideos" autocomplete="off" checked onchange="btnradioVideosChange(this)">
+                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioNewVideos"
+                                autocomplete="off" checked onchange="btnradioVideosChange(this)">
                             <label class="btn btn-outline-primary" for="btnradioNewVideos">Neue Videos suchen</label>
-    
-                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioOldVideos" autocomplete="off" onchange="btnradioVideosChange(this)">
+
+                            <input type="radio" class="btn-check" name="btnradioVideos" id="btnradioOldVideos"
+                                autocomplete="off" onchange="btnradioVideosChange(this)">
                             <label class="btn btn-outline-primary" for="btnradioOldVideos">Alte Videos prüfen</label>
                         </div>
                         <div class="form-check form-switch">
@@ -134,7 +136,11 @@
                                 Channels durchsuchen</label>
                         </div>
                         {/index}
-                        
+                        <div class="form-check form-switch" style="display: none;">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckVideosWithoutDuration">
+                            <label class="form-check-label" for="flexSwitchCheckVideosWithoutDuration">Nur Videos ohne
+                                Dauer prüfen</label>
+                        </div>
                     </div>
                 </div>
 

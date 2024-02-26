@@ -273,7 +273,9 @@ async function refreshVideos() {
 function btnradioVideosChange(elem) {
     if (elem.id === 'btnradioNewVideos') {
         document.getElementById('flexSwitchCheckNewVideos').parentNode.style.display = '';
+        document.getElementById('flexSwitchCheckVideosWithoutDuration').parentNode.style.display = 'none';
     } else {
         document.getElementById('flexSwitchCheckNewVideos').parentNode.style.display = 'none';
+        document.getElementById('flexSwitchCheckVideosWithoutDuration').parentNode.style.display = '';
     }
 }

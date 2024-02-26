@@ -121,6 +121,10 @@ class YtAPI {
                 filters.push('users.inactive = 0');
             }
         }
+        const videosWithoutDurationOnly = document.getElementById('flexSwitchCheckVideosWithoutDuration').checked;
+        if (videosWithoutDurationOnly) {
+            filters.push('videos.duration = 0');
+        }
 
         const query = 'SELECT videoId FROM videos INNER JOIN users ON videos.usersId = users.usersId WHERE ' + filters.join(' AND ');
 
@@ -175,7 +179,7 @@ class YtAPI {
         await startProcessing();
 
         try {
-            if(isPlaylist) {
+            if (isPlaylist) {
                 await this.#getVideosByPlaylist(usersId, channelId, newOnly, true);
             } else {
                 await this.#getVideosByUser(usersId, channelId, newOnly, true);
