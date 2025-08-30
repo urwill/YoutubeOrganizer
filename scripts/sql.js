@@ -270,7 +270,7 @@ async function loadTable() {
     let dataTableArray = [];
 
     //Progressbar nur bei großen Datenmengen einblenden, da es den Ablauf verzögert und das sonst nur sinnlos ausbremst
-    const showProgressBar = totalCount > 5000;
+    const showProgressBar = totalCount > 8000;
     if (showProgressBar) {
         await startProcessing();
     }
@@ -487,4 +487,5 @@ function decodeEntities(text) {
     var txt = document.createElement("textarea");
     txt.innerHTML = text;
     return txt.value;
+
 }
