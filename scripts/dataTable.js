@@ -1,15 +1,15 @@
 // DataTable-Variable für die spätere Verwendung deklarieren
-var dataTable;
+let dataTable;
 
 async function initDataTable(dataTableArray, sortColumn) {
     await showLoadingOverlay();
+    const pageName = getPageName();
     // Überprüfe, ob DataTable bereits initialisiert wurde
     if ($.fn.DataTable.isDataTable('#dataTable')) {
         const currentPage = dataTable.page();
         dataTable.clear().rows.add(dataTableArray).draw();
         dataTable.page(currentPage).draw('page');
     } else {    // Initialisiere die DataTable
-        const pageName = getPageName();
         let columnDefs = [];
 
         if (pageName === 'index' || pageName === 'userDetails') {
@@ -21,7 +21,7 @@ async function initDataTable(dataTableArray, sortColumn) {
                     if (type === 'display') {
                         const videosId = row[getColumnIndex('videosId')];
                         const usersId = row[getColumnIndex('usersId')];
-                        return '<a href="' + youtubeLink + '" target="_blank" style="text-decoration:none;" onclick="return clickVideo(' + videosId + ', ' + usersId + ');">' + data + '</a>';
+                        return '<a href="' + youtubeLink + '" target="_blank" style="text-decoration:none;" onclick="return clickVideo(' + videosId + ', ' + usersId + ', this);">' + data + '</a>';
                     }
                     return data;
                 },
@@ -87,7 +87,21 @@ async function initDataTable(dataTableArray, sortColumn) {
                         "type": "string"
                     },
                     {
-                        "targets": 'videoCount', "orderable": false // Hier die Spaltennummer, die nicht sortierbar sein soll
+                        "targets": 'videosId',
+                        "width": '10px',    // Kleineren Wert als benötigt werden. Wird dann automatisch an den Inhalt angepasst. Ansonsten hätte man whitespace hinter den Buttons
+                        "render": function (data, type, row) {
+                            if (document.getElementById('filterSeen').value === '1') {
+                                const videosId = data;
+                                const usersId = row[getColumnIndex('usersId')];
+                                return `<i class="fas fa-rotate-left fa-fw image-button" onclick="videoUnseen(${videosId}, ${usersId}, true);"></i>`;
+                            } else {
+                                return data;
+                            }
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "targets": ['videoCount', 'videosId'], "orderable": false // Hier die Spaltennummer, die nicht sortierbar sein soll
                     },
                     {
                         "targets": ['videosId', 'usersId', 'videoId', 'duration', 'videoCount'], "searchable": false // Hier die Spaltennummer, die nicht durchsuchbar sein soll
@@ -205,12 +219,20 @@ async function initDataTable(dataTableArray, sortColumn) {
         if (['index', 'userDetails'].includes(pageName)) {
             $('#dataTable tbody').on('click', 'tr:not(:has(td.dataTables_empty))', function (event) {
                 // Überprüfen, ob das geklickte Element ein Link ist
-                if (!$(event.target).closest('a').length) {
+                if (!$(event.target).closest('a').length && !$(event.target).closest('i').length) {
                     // Hier wird die Zeile ausgewählt oder deselektiert
                     $(this).toggleClass('selected');
                 }
             });
         }
     }
+    if (pageName === 'index') {
+        toggleColumnVisibility('videosId', document.getElementById('filterSeen').value === '1');
+    }
     await hideLoadingOverlay();
+}
+
+function toggleColumnVisibility(columnName, shouldBeVisible) {
+    const columnIndex = getColumnIndex(columnName);
+    dataTable.column(columnIndex).visible(shouldBeVisible);
 }

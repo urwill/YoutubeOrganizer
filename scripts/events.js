@@ -1,4 +1,13 @@
-function clickVideo(videosId, usersId, reloadTable = true) {
+function clickVideo(videosId, usersId, linkElem, reloadTable = true) {
+    if (linkElem) {
+        privacyStatus = getDBValue('privacyStatus', 'videos', 'videosId = ?', videosId);
+        if (privacyStatus === 'private' || privacyStatus === 'deleted') {
+            if (confirm('Das Video ist nicht mehr öffentlich verfügbar.\nSoll die Wayback Machine nach einem passenden Eintrag durchsucht werden?')) {
+                linkElem.href = 'https://web.archive.org/web/*/' + linkElem.href;
+            }
+        }
+    }
+
     if (document.getElementById('filterSeen').value == 0) {
         runQuery('UPDATE videos SET seen = 1 WHERE videosId = ?;', [videosId], false);  // Datenbank erst am Ende speichern
         runQuery('UPDATE users SET seenVideoCount = seenVideoCount + 1 WHERE usersId = ?;', [usersId], false);    // Datenbank erst am Ende speichern
@@ -7,7 +16,8 @@ function clickVideo(videosId, usersId, reloadTable = true) {
         if (reloadTable) {
             saveSQLFile();
             loadTable();
-            showSeenToast([{videosId: videosId, usersId: usersId}]);
+            showSeenToast([{ videosId: videosId, usersId: usersId }]);
+            //saveToWaybackMachine([{videosId: videosId}]);
         }
     }
 }
@@ -17,7 +27,7 @@ function showSeenToast(videoInfos) {
     const toastId = `seenToast_${uniqueValue}`;
     let headerText;
     let body;
-    if(videoInfos.length === 1) {
+    if (videoInfos.length === 1) {
         headerText = 'Video angesehen';
         const videoTitle = getDBValue('title', 'videos', 'videosId = ?', videoInfos[0].videosId);
         body = `Das Video "${videoTitle}" wurde als gesehen markiert.`
@@ -53,7 +63,7 @@ function hideSeenToast(toastId) {
 }
 
 function videosUnseen(videoInfos, toastId) {
-    for(const videoInfo of videoInfos) {
+    for (const videoInfo of videoInfos) {
         videoUnseen(videoInfo.videosId, videoInfo.usersId);
     }
     hideSeenToast(toastId);
@@ -61,9 +71,14 @@ function videosUnseen(videoInfos, toastId) {
     loadTable();
 }
 
-function videoUnseen(videosId, usersId) {
+function videoUnseen(videosId, usersId, reloadTable = false) {
     runQuery(`UPDATE videos SET seen = 0 WHERE videosId = ?;`, videosId, false);
     runQuery(`UPDATE users SET seenVideoCount = seenVideoCount - 1 WHERE usersId = ?;`, usersId, false);
+
+    if (reloadTable) {
+        saveSQLFile();
+        loadTable();
+    }
 }
 
 function selectPlaylistType(elem) {
@@ -169,15 +184,16 @@ function createPlaylist(type) {
         }
         const videoId = rowData[videoIdIndex];
         videoIds.push(videoId);
-        videoInfos.push({videosId: videosId, usersId: usersId});
+        videoInfos.push({ videosId: videosId, usersId: usersId });
 
-        clickVideo(videosId, usersId, false);
+        clickVideo(videosId, usersId, null, false);
     }
 
     createPlaylistLink(videoIds);
     saveSQLFile();
     loadTable();
     showSeenToast(videoInfos);
+    //saveToWaybackMachine(videoInfos);
 }
 
 async function getVideosNew(channelId, isPlaylist) {

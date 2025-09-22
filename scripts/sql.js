@@ -1,13 +1,13 @@
 let db;
 const displayedColumnsIndex = [
-    ['videosId', 'videosId'],
     ['usersId', 'usersId'],
     ['userName', 'Channel / Playlist'],
     ['videoId', 'videoId'],
     ['title', 'Video'],
     ['publishedAt', 'Datum'],
     ['duration', 'Dauer'],
-    ['videoCount', 'Gesehen / Anzahl']
+    ['videoCount', 'Gesehen / Anzahl'],
+    ['videosId', ''],
 ];
 const displayedColumnsUserDetails = [
     ['videosId', 'videosId'],

@@ -34,8 +34,9 @@ async function importTemplates() {
         { url: 'scripts/syncDB.js' },
         { url: 'scripts/theme.js' },
         { url: 'scripts/users.js' },
-        { url: 'scripts/youtubeAPI.js' }
-        //{ url: 'scripts/gdrive.js' }
+        { url: 'scripts/youtubeAPI.js' },
+        //{ url: 'scripts/gdrive.js' },
+        { url: 'scripts/wayback.js' }
     ];
 
     // Da manche Javascript Dateien aufeinander aufbauen und in der richten Reihenfolge geladen werden müssen, immer warten. Am Ende sind dann auch die benötigten Werte für dynamicData verfügbar
@@ -132,7 +133,10 @@ function addScript(url, integrity, crossOrigin) {
 // Eine Funktion, die eine HTML-Datei holt und einfügt
 function fetchAndInsertHtml(url, data) {
     return new Promise((resolve, reject) => {
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            cache: 'no-cache'  // Hier wird der Cache-Verhalten deaktiviert
+        })
             .then(response => response.text())
             .then(html => {
                 // Ersetze Platzhalter mit den entsprechenden Daten
