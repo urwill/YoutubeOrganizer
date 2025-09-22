@@ -17,6 +17,7 @@ async function importTemplates() {
         { url: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', integrity: 'sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL', crossOrigin: 'anonymous' },
         { url: 'https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js' },
         { url: 'https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js' },
+        //{ url: 'https://apis.google.com/js/api.js' },
         { url: 'scripts/bs-alert.js' },
         { url: 'scripts/bs-toast.js' },
         { url: 'scripts/conversions.js' },
@@ -34,6 +35,7 @@ async function importTemplates() {
         { url: 'scripts/theme.js' },
         { url: 'scripts/users.js' },
         { url: 'scripts/youtubeAPI.js' }
+        //{ url: 'scripts/gdrive.js' }
     ];
 
     // Da manche Javascript Dateien aufeinander aufbauen und in der richten Reihenfolge geladen werden müssen, immer warten. Am Ende sind dann auch die benötigten Werte für dynamicData verfügbar
