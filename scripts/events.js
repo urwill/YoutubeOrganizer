@@ -17,8 +17,11 @@ function clickVideo(videosId, usersId, linkElem, reloadTable = true) {
             saveSQLFile();
             loadTable();
             showSeenToast([{ videosId: videosId, usersId: usersId }]);
-            //saveToWaybackMachine([{videosId: videosId}]);
         }
+    }
+
+    if (["2", "3"].includes(getArchive())) {
+        saveToWaybackMachine(getDBValue('videoId', 'videos', 'videosId = ?', videosId));
     }
 }
 
@@ -193,7 +196,6 @@ function createPlaylist(type) {
     saveSQLFile();
     loadTable();
     showSeenToast(videoInfos);
-    //saveToWaybackMachine(videoInfos);
 }
 
 async function getVideosNew(channelId, isPlaylist) {

@@ -88,6 +88,20 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
+                            <span class="input-group-text"><div class="icon fa-fw"><img src="./icons/wayback.svg" class="" /></div></span>
+                            <select class="form-select" id="selectArchive" onchange="setArchive(this.value);"
+                                value="{archive_setting}">
+                                <option value="0">Links nicht an die Wayback Machine schicken</option>
+                                <option value="1">Links zu neuen Videos an Wayback Machine schicken</option>
+                                <option value="2">Links zu Videos, die man ansieht, an Wayback Machine schicken</option>
+                                <option value="3">Links zu neuen Videos & zu Videos, die man ansieht, an Wayback Machine schicken</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-chart-line fa-fw"></i></span>
                             <span class="input-group-text">Verbraucht</span>
                             <input type="text" class="form-control" id="textInputQuota"

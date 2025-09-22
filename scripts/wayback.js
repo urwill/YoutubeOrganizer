@@ -1,10 +1,8 @@
 let archiveQueue = [];
 let isArchiving = false;
 
-async function saveToWaybackMachine(videoInfos) {
-    for (const videoInfo of videoInfos) {
-        archiveQueue.push('https://www.youtube.com/watch?v=' + getDBValue('videoId', 'videos', 'videosId = ?', videoInfo.videosId));
-    }
+async function saveToWaybackMachine(videoId) {
+    archiveQueue.push('https://www.youtube.com/watch?v=' + videoId);
     archiveLinksSequentially();
 }
 
@@ -13,6 +11,7 @@ async function archiveLinksSequentially() {
     isArchiving = true;
 
     const currentUrl = archiveQueue.shift();
+    console.log("Archivierung gestartet.", currentUrl);
     let iframe = document.createElement("iframe");
     iframe.style.display = "none";
     //iframe.style.width = "1500px";

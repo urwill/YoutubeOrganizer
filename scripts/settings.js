@@ -2,6 +2,7 @@ const THEME_KEY = 'color_theme';
 const BACKUP_TIME = 'backup_time';
 const BACKUP_REMINDER_CHECK_KEY = 'backup_reminder_check';
 const BACKUP_REMINDER_DAYS_KEY = 'backup_reminder_days';
+const ARCHIVE_KEY = 'archive_setting';
 const QUOTA_KEY = 'youtube_quota';
 const QUOTA_EXPIRE_KEY = 'youtube_quota_expire';
 const TOTAL_QUOTA_KEY = 'total_youtube_quota';
@@ -158,6 +159,14 @@ function refreshBackupReminderDays(value) {
     setBackupReminderTrigger(); //Timeout anpassen
 }
 
+function getArchive() {
+    const value = getLocalStorageItem(ARCHIVE_KEY) || "0";
+    return value;
+}
+
+function setArchive(value) {
+    setLocalStorageItem(ARCHIVE_KEY, value);
+}
 
 // Ablaufzeitpunkt für verbrauchtes Kontingent
 function getQuotaExpire() {

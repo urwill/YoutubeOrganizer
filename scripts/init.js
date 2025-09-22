@@ -73,9 +73,10 @@ async function importTemplates() {
     const htmlFiles = ['./html/loadingOverlay.html', './html/progressBar.html', './html/userModal.html', './html/navBar.html', './html/bodyContainer.html'];
     const dynamicData = {
         appName: APP_NAME,
-        theme: getTheme(),
+        //theme: getTheme(),
         backupReminderCheck: getBackupReminderCheck(),
         backupReminderDays: getBackupReminderDays(),
+        //archive_setting: getArchive(),
         quota: getQuota(),
         totalQuota: getTotalQuota(),
         apiKey: getApiKey(),
@@ -96,6 +97,11 @@ async function importTemplates() {
     for (const url of htmlFiles) {
         await fetchAndInsertHtml(url, dynamicData);
     }
+
+    // Stanardwerte für select Elemente funktionieren leider nicht über value="", also hier machen
+    document.getElementById('selectTheme').value = getTheme();
+    document.getElementById('selectArchive').value = getArchive();
+
     startUp();
 }
 

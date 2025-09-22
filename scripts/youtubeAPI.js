@@ -423,7 +423,7 @@ class YtAPI {
                 runQuery(`INSERT INTO videos (usersId, videoId, title, originalTitle, duration, publishedAt, privacyStatus) VALUES(?, ?, ?, ?, ?, ?, ?);`,
                     [usersId, videoId, videoInfo.title, videoInfo.title, videoInfo.duration, videoInfo.publishedAt, videoInfo.privacyStatus], false);   // Datenbank erst am Ende speichern
                 runQuery('UPDATE users SET userVideoCount = userVideoCount + 1 WHERE usersId = ?;', [usersId], false);  // Datenbank erst am Ende speichern
-                saveToWaybackMachine([{videosId: getDBValue('videosId', 'videos', 'usersId = ? AND videoId = ?', [usersId, videoId])}]);
+                saveToWaybackMachine(videoId);
             }
         } else {
             if (dbVideo[0].duration === 0) { // Keine Dauer. Vermutlich Livestream, der vorab gespeichert wurde. Möglicherweise tritt das nur bei alten Daten auf
