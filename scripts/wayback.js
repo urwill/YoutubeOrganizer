@@ -7,9 +7,13 @@ async function saveToWaybackMachine(videoId) {
 }
 
 async function archiveLinksSequentially() {
-    if (isArchiving || archiveQueue.length === 0) return;
+    if (isArchiving || archiveQueue.length === 0) {
+        console.log('Archivierungsliste abgearbeitet.')
+        return;
+    }
     isArchiving = true;
 
+    console.log('Archivierungsliste:', archiveQueue);
     const currentUrl = archiveQueue.shift();
     console.log("Archivierung gestartet.", currentUrl);
 
