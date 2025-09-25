@@ -7,7 +7,8 @@ async function saveToWaybackMachine(videoId) {
 }
 
 async function archiveLinksSequentially() {
-    if (isArchiving || archiveQueue.length === 0) {
+    if (isArchiving) return;
+    if (archiveQueue.length === 0) {
         console.log('Archivierungsliste abgearbeitet.')
         return;
     }
